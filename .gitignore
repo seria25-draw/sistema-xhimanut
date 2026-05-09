@@ -1,0 +1,12 @@
+# Sistema Operativo
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Node (por si acaso)
+node_modules/
+
+# Variables de entorno
+.env
