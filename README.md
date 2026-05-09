@@ -47,7 +47,7 @@ sistema-xhimanut/
 ├── data/
 └── README.md
 
-## 🚀 Cómo ejecutar el proyecto
+## Cómo ejecutar el proyecto
 
 1. Clona el repositorio
 ```bash
