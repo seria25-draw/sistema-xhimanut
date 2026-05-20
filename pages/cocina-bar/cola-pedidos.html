@@ -38,14 +38,17 @@
 
             <!-- Navigation -->
             <nav class="sidebar-nav">
-                <a href="#" class="nav-link active" onclick="showScreen('screen-zone')">
+                <a href="#" class="nav-link" onclick="showScreen('screen-zone')">
                     <i class="fa-solid fa-house"></i> Inicio
                 </a>
-                <a href="#" class="nav-link" onclick="showScreen('screen-queue')">
+                <a href="#" class="nav-link active" onclick="showScreen('screen-queue')">
                     <i class="fa-solid fa-list"></i> Cola de pedidos
                 </a>
-                <a href="#" class="nav-link" onclick="showScreen('screen-detail')">
+                <a href="#" class="nav-link" id="nav-detail">
                     <i class="fa-solid fa-file-lines"></i> Detalle de orden
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-clock-rotate-left"></i> Historial del turno
                 </a>
             </nav>
 
@@ -69,7 +72,7 @@
 
             <!-- Top bar -->
             <div class="topbar">
-                <span class="breadcrumb">Xhimanut / Inicio</span>
+                <span class="breadcrumb" id="breadcrumb">Xhimanut / Cola de pedidos</span>
                 <div class="search-wrapper">
                     <i class="fa-solid fa-magnifying-glass search-icon"></i>
                     <input type="text" class="search-bar" placeholder="Buscar...">
@@ -81,17 +84,15 @@
             </div>
 
             <!-- SCREEN 1: Select zone -->
-            <div id="screen-zone" class="screen active">
+            <div id="screen-zone" class="screen">
                 <div class="zone-header">
                     <h2>¿Cuál es tu zona hoy?</h2>
                     <p>Selecciona tu área de preparación para este turno</p>
                 </div>
-
                 <div class="zone-cards">
-
                     <div class="zone-card">
                         <div class="zone-icon">
-                                <i class="fa-solid fa-utensils"></i>
+                            <i class="fa-solid fa-utensils"></i>
                         </div>
                         <h3>Cocina</h3>
                         <p class="zone-description">Platos principales y entradas</p>
@@ -100,7 +101,6 @@
                             Ir a Cocina
                         </button>
                     </div>
-
                     <div class="zone-card">
                         <div class="zone-icon">
                             <i class="fa-solid fa-wine-glass"></i>
@@ -112,45 +112,187 @@
                             Ir a Bar
                         </button>
                     </div>
-
                 </div>
             </div>
 
             <!-- SCREEN 2: Orders queue -->
-            <div id="screen-queue" class="screen">
-                <div class="zone-header" style="text-align: left;">
-                    <h2 id="queue-title">Cola – Cocina</h2>
-                    <p>Pedidos organizados por orden de llegada</p>
+            <div id="screen-queue" class="screen active">
+
+                <!-- Queue header -->
+                <div class="queue-header">
+                    <div class="queue-title-row">
+                        <h2>Cola de pedidos</h2>
+                        <span class="live-badge">
+                            <i class="fa-solid fa-circle"></i> En vivo
+                        </span>
+                    </div>
+                    <button class="zone-tag" id="zone-tag" onclick="showScreen('screen-zone')">
+                        Cocina
+                    </button>
                 </div>
-                <div id="orders-list" class="orders-list"></div>
+
+                <!-- Stats cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <p class="stat-label">Pendientes</p>
+                        <p class="stat-number red" id="stat-pending">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-label">En proceso</p>
+                        <p class="stat-number orange" id="stat-inprogress">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-label">Listos hoy</p>
+                        <p class="stat-number green" id="stat-ready">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-label">Tiempo prom</p>
+                        <p class="stat-number black" id="stat-time">8 min</p>
+                    </div>
+                </div>
+
+                <!-- Filter buttons -->
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterOrders('all', this)">Todos</button>
+                    <button class="filter-btn" onclick="filterOrders('urgent', this)">Urgentes</button>
+                    <button class="filter-btn" onclick="filterOrders('new', this)">Nuevos</button>
+                    <button class="filter-btn" onclick="filterOrders('in-progress', this)">En proceso</button>
+                </div>
+
+                <!-- Orders grid -->
+                <div id="orders-list" class="orders-grid"></div>
+
             </div>
 
             <!-- SCREEN 3: Order detail -->
             <div id="screen-detail" class="screen">
-                <div class="zone-header" style="text-align: left;">
-                    <button class="back-button" onclick="goBackToQueue()">
-                        <i class="fa-solid fa-arrow-left"></i> Volver
-                    </button>
-                    <h2 id="detail-title">Detalle Orden</h2>
-                </div>
-                <div id="detail-items" class="detail-items"></div>
-                <div id="detail-info" class="detail-info"></div>
-                <button class="primary-button" onclick="markAsReady()">
-                    <i class="fa-solid fa-check"></i> Marcar como LISTO
+
+                <!-- Detail header -->
+                <button class="back-link" onclick="goBackToQueue()">
+                    <i class="fa-solid fa-arrow-left"></i> Volver a la cola
                 </button>
+
+                <div class="detail-header-row">
+                    <h2 id="detail-title">Orden #0042 · Mesa 3</h2>
+                    <span class="status-badge new" id="detail-status">NUEVO</span>
+                    <span class="detail-time" id="detail-time">Hace 3 minutos</span>
+                </div>
+
+                <!-- Detail layout: left content + right panel -->
+                <div class="detail-layout">
+
+                    <!-- Left: items to prepare -->
+                    <div class="detail-main">
+                        <div class="items-card">
+                            <h3>Items a preparar</h3>
+
+                            <!-- Progress bar -->
+                            <div class="progress-row">
+                                <span id="progress-text">0/0 items</span>
+                                <span id="progress-percent">0% completado</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progress-fill"></div>
+                            </div>
+
+                            <!-- Items list with checkboxes -->
+                            <div id="detail-items"></div>
+                        </div>
+
+                        <!-- Action buttons -->
+                        <div class="action-buttons">
+                            <button class="primary-button" onclick="markAsReady()">
+                                Marcar todo como LISTO ✓
+                            </button>
+                            <button class="outline-button" onclick="markPartial()">
+                                Marcar parcialmente
+                            </button>
+                            <button class="ghost-button" onclick="reportProblem()">
+                                Reportar problema
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right: order info panel -->
+                    <div class="detail-panel">
+                        <h3>Información del pedido</h3>
+                        <div class="panel-info">
+                            <div class="panel-row">
+                                <span>Mesa:</span>
+                                <span id="panel-table">-</span>
+                            </div>
+                            <div class="panel-row">
+                                <span>Mesero:</span>
+                                <span id="panel-waiter">-</span>
+                            </div>
+                            <div class="panel-row">
+                                <span>Hora pedido:</span>
+                                <span id="panel-time">-</span>
+                            </div>
+                            <div class="panel-row">
+                                <span>Tiempo transcurrido:</span>
+                                <span id="panel-elapsed">-</span>
+                            </div>
+                            <div class="panel-row">
+                                <span>Zona:</span>
+                                <span id="panel-zone">-</span>
+                            </div>
+                        </div>
+                        <div class="panel-status">
+                            <button class="status-button">
+                                <i class="fa-solid fa-clock"></i> En preparación
+                            </button>
+                            <p class="estimated-time">Tiempo estimado: 15–20 min</p>
+                        </div>
+
+                        <!-- Other active orders -->
+                        <div class="other-orders">
+                            <h4>Otras órdenes activas</h4>
+                            <div id="other-orders-list"></div>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
 
             <!-- SCREEN 4: Confirmation -->
             <div id="screen-confirmation" class="screen">
-                <div class="confirmation-card">
-                    <div class="check-icon">
+                <div class="confirmation-container">
+
+                    <!-- Check icon -->
+                    <div class="confirm-check">
                         <i class="fa-solid fa-circle-check"></i>
                     </div>
-                    <p id="confirmation-text"></p>
+
+                    <h2 id="confirm-title">¡Orden lista para servir!</h2>
+                    <p id="confirm-subtitle">El mesero ha sido notificado</p>
+
+                    <!-- Summary card -->
+                    <div class="confirm-card">
+                        <h3 id="confirm-order-title">Orden · Mesa</h3>
+                        <span class="ready-badge">✓ LISTO PARA SERVIR</span>
+                        <hr>
+                        <div id="confirm-items"></div>
+                        <hr>
+                        <p class="confirm-meta" id="confirm-time">Tiempo de preparación: -</p>
+                        <span class="notify-badge">
+                            <i class="fa-solid fa-message"></i>
+                            Notificación enviada · hace 2 seg
+                        </span>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="confirm-buttons">
+                        <button class="primary-button" onclick="nextOrder()">
+                            Ver siguiente pedido
+                        </button>
+                        <button class="outline-button" onclick="goBackToQueue()">
+                            Volver a la cola
+                        </button>
+                    </div>
+
                 </div>
-                <button class="secondary-button" onclick="nextOrder()">
-                    Ver siguiente pedido
-                </button>
             </div>
 
         </main>
