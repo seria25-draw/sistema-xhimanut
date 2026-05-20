@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cocina - Cola de Pedidos</title>
+
+    <!-- Icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/cocina-bar.css">
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <!-- Logo -->
+            <div class="sidebar-logo">
+                <h1>Xhimanut</h1>
+                <p>Panel Cocina</p>
+            </div>
+
+            <!-- User info -->
+            <div class="sidebar-user">
+                <div class="user-avatar">L</div>
+                <div>
+                    <p class="user-name">Luis Rodríguez</p>
+                    <p class="user-role">Cocina</p>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active" onclick="showScreen('screen-zone')">
+                    <i class="fa-solid fa-house"></i> Inicio
+                </a>
+                <a href="#" class="nav-link" onclick="showScreen('screen-queue')">
+                    <i class="fa-solid fa-list"></i> Cola de pedidos
+                </a>
+                <a href="#" class="nav-link" onclick="showScreen('screen-detail')">
+                    <i class="fa-solid fa-file-lines"></i> Detalle de orden
+                </a>
+            </nav>
+
+            <!-- Bottom links -->
+            <div class="sidebar-bottom">
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-bell"></i> Notificaciones
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-circle-question"></i> Ayuda
+                </a>
+                <a href="#" class="nav-link danger">
+                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                </a>
+            </div>
+
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <!-- Top bar -->
+            <div class="topbar">
+                <span class="breadcrumb">Xhimanut / Inicio</span>
+                <div class="search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" class="search-bar" placeholder="Buscar...">
+                </div>
+                <div class="topbar-right">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="topbar-user">J &nbsp; Juan García ▾</span>
+                </div>
+            </div>
+
+            <!-- SCREEN 1: Select zone -->
+            <div id="screen-zone" class="screen active">
+                <div class="zone-header">
+                    <h2>¿Cuál es tu zona hoy?</h2>
+                    <p>Selecciona tu área de preparación para este turno</p>
+                </div>
+
+                <div class="zone-cards">
+
+                    <div class="zone-card">
+                        <div class="zone-icon">
+                                <i class="fa-solid fa-utensils"></i>
+                        </div>
+                        <h3>Cocina</h3>
+                        <p class="zone-description">Platos principales y entradas</p>
+                        <span class="zone-badge" id="kitchen-badge">0 pedidos pendientes</span>
+                        <button class="zone-button" onclick="selectZone('kitchen')">
+                            Ir a Cocina
+                        </button>
+                    </div>
+
+                    <div class="zone-card">
+                        <div class="zone-icon">
+                            <i class="fa-solid fa-wine-glass"></i>
+                        </div>
+                        <h3>Bar</h3>
+                        <p class="zone-description">Bebidas y cócteles</p>
+                        <span class="zone-badge" id="bar-badge">0 pedidos pendientes</span>
+                        <button class="zone-button" onclick="selectZone('bar')">
+                            Ir a Bar
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SCREEN 2: Orders queue -->
+            <div id="screen-queue" class="screen">
+                <div class="zone-header" style="text-align: left;">
+                    <h2 id="queue-title">Cola – Cocina</h2>
+                    <p>Pedidos organizados por orden de llegada</p>
+                </div>
+                <div id="orders-list" class="orders-list"></div>
+            </div>
+
+            <!-- SCREEN 3: Order detail -->
+            <div id="screen-detail" class="screen">
+                <div class="zone-header" style="text-align: left;">
+                    <button class="back-button" onclick="goBackToQueue()">
+                        <i class="fa-solid fa-arrow-left"></i> Volver
+                    </button>
+                    <h2 id="detail-title">Detalle Orden</h2>
+                </div>
+                <div id="detail-items" class="detail-items"></div>
+                <div id="detail-info" class="detail-info"></div>
+                <button class="primary-button" onclick="markAsReady()">
+                    <i class="fa-solid fa-check"></i> Marcar como LISTO
+                </button>
+            </div>
+
+            <!-- SCREEN 4: Confirmation -->
+            <div id="screen-confirmation" class="screen">
+                <div class="confirmation-card">
+                    <div class="check-icon">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <p id="confirmation-text"></p>
+                </div>
+                <button class="secondary-button" onclick="nextOrder()">
+                    Ver siguiente pedido
+                </button>
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../data/db.js"></script>
+    <script src="../../assets/js/cocina-bar.js"></script>
+
+</body>
+
+</html>
