@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Xhimanut — Cola de pedidos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../../assets/css/global.css"/>
+  <link rel="stylesheet" href="../../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../../assets/css/cocina-bar.css"/>
+</head>
+<body>
+
+<div id="layout-container"></div>
+
+<div class="app-container">
+  <main class="main-content">
+
+    <!-- ══ PANTALLA: Cola de pedidos ══ -->
+    <div id="screen-queue" class="screen active">
+
+      <div class="queue-header">
+        <div class="queue-title-row">
+          <h2 id="queue-titulo">Cola de pedidos</h2>
+          <span class="live-badge">
+            <i class="fa-solid fa-circle"></i> En vivo
+          </span>
+        </div>
+        <button class="zone-tag" id="zone-tag" onclick="cambiarZona()">
+          —
+        </button>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p class="stat-label">Pendientes</p>
+          <p class="stat-number red" id="stat-pending">0</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">En proceso</p>
+          <p class="stat-number orange" id="stat-inprogress">0</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Listos hoy</p>
+          <p class="stat-number green" id="stat-ready">0</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Total</p>
+          <p class="stat-number black" id="stat-total">0</p>
+        </div>
+      </div>
+
+      <!-- Filtros -->
+      <div class="filter-buttons">
+        <button class="filter-btn active" onclick="filterOrders('all', this)">Todos</button>
+        <button class="filter-btn" onclick="filterOrders('pendiente', this)">Pendientes</button>
+        <button class="filter-btn" onclick="filterOrders('en_preparacion', this)">En proceso</button>
+        <button class="filter-btn" onclick="filterOrders('listo', this)">Listos</button>
+      </div>
+
+      <!-- Grid -->
+      <div id="orders-list" class="orders-grid"></div>
+    </div>
+
+    <!-- ══ PANTALLA: Detalle ══ -->
+    <div id="screen-detail" class="screen">
+
+      <button class="back-link" onclick="goBackToQueue()">
+        <i class="fa-solid fa-arrow-left"></i> Volver a la cola
+      </button>
+
+      <div class="detail-header-row">
+        <h2 id="detail-title">Detalle Pedido</h2>
+        <span class="status-badge pendiente" id="detail-status">PENDIENTE</span>
+        <span class="detail-time" id="detail-time">—</span>
+      </div>
+
+      <div class="detail-layout">
+        <div class="detail-main">
+          <div class="items-card">
+            <h3>Items a preparar</h3>
+            <div class="progress-row">
+              <span id="progress-text">0/0 items</span>
+              <span id="progress-percent">0% completado</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div id="detail-items"></div>
+          </div>
+
+          <div class="action-buttons">
+            <button class="primary-button" onclick="markAsReady()">
+              <i class="fa-solid fa-check"></i> Marcar todo como LISTO
+            </button>
+            <button class="outline-button" onclick="markPartial()">
+              Marcar parcialmente
+            </button>
+            <button class="ghost-button" onclick="goBackToQueue()">
+              Volver a cola
+            </button>
+          </div>
+        </div>
+
+        <div class="detail-panel">
+          <h3>Información del pedido</h3>
+          <div class="panel-info">
+            <div class="panel-row">
+              <span>Mesa:</span>
+              <span id="panel-table">-</span>
+            </div>
+            <div class="panel-row">
+              <span>Zona:</span>
+              <span id="panel-zone">-</span>
+            </div>
+            <div class="panel-row">
+              <span>Hora:</span>
+              <span id="panel-time">-</span>
+            </div>
+            <div class="panel-row">
+              <span>Área:</span>
+              <span id="panel-area">-</span>
+            </div>
+          </div>
+
+          <div class="panel-status">
+            <button class="status-button">
+              <i class="fa-solid fa-fire-burner"></i> En preparación
+            </button>
+            <p class="estimated-time">Tiempo estimado: 15–20 min</p>
+          </div>
+
+          <div class="other-orders">
+            <h4>Otras órdenes activas</h4>
+            <div id="other-orders-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PANTALLA: Confirmación ══ -->
+    <div id="screen-confirmation" class="screen">
+      <div class="confirmation-container">
+        <div class="confirm-check">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h2 id="confirm-title">¡Pedido listo!</h2>
+        <p id="confirm-subtitle">El mesero ha sido notificado</p>
+        <div class="confirm-card">
+          <h3 id="confirm-order-title">Pedido · Mesa</h3>
+          <span class="ready-badge">✓ LISTO PARA SERVIR</span>
+          <hr/>
+          <div id="confirm-items"></div>
+          <hr/>
+          <p class="confirm-meta" id="confirm-time">—</p>
+          <span class="notify-badge">
+            <i class="fa-solid fa-bell"></i> Notificación enviada al mesero
+          </span>
+        </div>
+        <div class="confirm-buttons">
+          <button class="primary-button" onclick="nextOrder()">
+            Ver siguiente pedido
+          </button>
+          <button class="outline-button" onclick="goBackToQueue()">
+            Volver a la cola
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="../../data/db.js"></script>
+<script src="../../assets/js/layout.js"></script>
+<script src="../../assets/js/cocina-bar.js"></script>
+<script>
+  initLayout('Cola pedidos');
+  initCocinBar();
+</script>
+
+</body>
+</html>

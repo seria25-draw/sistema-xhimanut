@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Xhimanut — Disponibilidad</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../../assets/css/global.css"/>
+  <link rel="stylesheet" href="../../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../../assets/css/agotados.css"/>
+</head>
+<body>
+
+<div id="layout-container"></div>
+
+<div class="app-container">
+  <main class="main-content">
+
+    <div class="page-header">
+      <div>
+        <h1> Disponibilidad de productos</h1>
+        <p class="text-muted">Marca los productos que están agotados o disponibles en cocina</p>
+      </div>
+    </div>
+
+    <!-- Alerta guardado -->
+    <div class="alerta-guardado hidden" id="alerta-guardado">
+      <i class="fa-solid fa-circle-check"></i> Cambios guardados correctamente
+    </div>
+
+    <!-- Tabs categoría -->
+    <div class="agot-tabs" id="agot-tabs"></div>
+
+    <!-- Grid de productos -->
+    <div class="agot-grid" id="agot-grid"></div>
+
+    <!-- Botón guardar -->
+    <div class="agot-footer">
+      <button class="btn-guardar-agotados" onclick="guardarCambios()">
+        <i class="fa-solid fa-floppy-disk"></i> Guardar cambios
+      </button>
+    </div>
+
+  </main>
+</div>
+
+<script src="../../data/db.js"></script>
+<script src="../../assets/js/layout.js"></script>
+<script src="../../assets/js/agotados.js"></script>
+<script>
+  initLayout('Agotados');
+  initAgotados();
+</script>
+
+</body>
+</html>

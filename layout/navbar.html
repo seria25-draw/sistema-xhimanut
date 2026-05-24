@@ -1,0 +1,137 @@
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <!-- Marca -->
+  <div class="sidebar-brand">
+    <div class="sidebar-brand-logo">
+      <i class="fa-solid fa-utensils"></i>
+    </div>
+    <span class="sidebar-brand-name">Xhimanut</span>
+  </div>
+
+  <!-- Menú generado por layout.js -->
+  <nav class="sidebar-nav" id="sidebar-nav"></nav>
+
+  <!-- Cerrar sesión -->
+  <div class="sidebar-footer">
+    <a href="#" class="sidebar-nav-item logout" id="btn-logout">
+      <span class="sidebar-nav-icon"
+        ><i class="fa-solid fa-right-from-bracket"></i
+      ></span>
+      <span class="sidebar-nav-label">Cerrar sesión</span>
+    </a>
+  </div>
+</aside>
+
+<!-- NAVBAR SUPERIOR -->
+<header class="navbar" id="navbar">
+  <!-- Breadcrumb -->
+  <div class="navbar-breadcrumb" id="navbar-breadcrumb">
+    <span class="breadcrumb-home"><i class="fa-solid fa-house"></i></span>
+    <i class="fa-solid fa-chevron-right breadcrumb-sep"></i>
+    <span class="current" id="navbar-page-title">Inicio</span>
+  </div>
+
+  <!-- Acciones -->
+  <!-- Acciones -->
+  <div class="navbar-actions">
+    <button
+      class="navbar-btn-icon"
+      title="Notificaciones"
+      onclick="toggleNotificaciones()"
+    >
+      <i class="fa-solid fa-bell"></i>
+      <span class="notif-badge" id="notif-badge" style="display: none"></span>
+    </button>
+
+    <div class="navbar-user" id="navbar-user">
+      <div class="navbar-user-info">
+        <span class="navbar-user-name" id="navbar-nombre">Usuario</span>
+        <span class="navbar-user-rol" id="sidebar-rol-label">Rol</span>
+      </div>
+      <div class="navbar-user-avatar" id="navbar-avatar">?</div>
+    </div>
+  </div>
+</header>
+<!-- Overlay -->
+<div
+  class="panel-overlay hidden"
+  id="notif-overlay"
+  onclick="cerrarPaneles()"
+></div>
+
+<!-- Panel notificaciones -->
+<div class="panel-lateral hidden" id="panel-notificaciones">
+  <div class="panel-header">
+    <h3><i class="fa-solid fa-bell"></i> Notificaciones</h3>
+    <button class="panel-close" onclick="cerrarPaneles()">
+      <i class="fa-solid fa-x"></i>
+    </button>
+  </div>
+  <div class="panel-body" id="notif-lista"></div>
+</div>
+
+<!-- Panel perfil -->
+<div class="panel-lateral hidden" id="panel-perfil">
+  <div class="panel-header">
+    <h3><i class="fa-solid fa-user"></i> Mi perfil</h3>
+    <button class="panel-close" onclick="cerrarPaneles()">
+      <i class="fa-solid fa-x"></i>
+    </button>
+  </div>
+  <div class="panel-body">
+    <!-- Avatar grande -->
+    <div class="perfil-avatar-wrap">
+      <div class="perfil-avatar" id="perfil-avatar-grande">?</div>
+      <h4 id="perfil-nombre-grande">Usuario</h4>
+      <span class="perfil-rol-badge" id="perfil-rol-badge">Rol</span>
+    </div>
+
+    <!-- Info -->
+    <div class="perfil-info-seccion">
+      <div class="perfil-info-titulo">Información</div>
+      <div class="perfil-info-item">
+        <i class="fa-solid fa-id-card"></i>
+        <div>
+          <span class="perfil-info-label">Cédula</span>
+          <span class="perfil-info-valor" id="perfil-cedula">—</span>
+        </div>
+      </div>
+      <div class="perfil-info-item">
+        <i class="fa-solid fa-shield-halved"></i>
+        <div>
+          <span class="perfil-info-label">Rol</span>
+          <span class="perfil-info-valor" id="perfil-rol">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cambiar contraseña -->
+    <div class="perfil-info-seccion">
+      <div class="perfil-info-titulo">Cambiar contraseña</div>
+      <div class="perfil-campo">
+        <label>Contraseña actual</label>
+        <input type="password" id="pass-actual" placeholder="••••••••" />
+      </div>
+      <div class="perfil-campo">
+        <label>Nueva contraseña</label>
+        <input type="password" id="pass-nueva" placeholder="••••••••" />
+      </div>
+      <div class="perfil-campo">
+        <label>Confirmar contraseña</label>
+        <input type="password" id="pass-confirmar" placeholder="••••••••" />
+      </div>
+      <div class="perfil-error hidden" id="perfil-error"></div>
+      <div class="perfil-success hidden" id="perfil-success">
+        <i class="fa-solid fa-circle-check"></i> Contraseña actualizada
+      </div>
+      <button class="btn-guardar-perfil" onclick="guardarPerfil()">
+        <i class="fa-solid fa-floppy-disk"></i> Guardar cambios
+      </button>
+    </div>
+
+    <!-- Cerrar sesión -->
+    <button class="btn-cerrar-sesion-perfil" onclick="cerrarSesion()">
+      <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+    </button>
+  </div>
+</div>

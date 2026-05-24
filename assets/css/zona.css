@@ -1,0 +1,160 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F5F5F5;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.zona-container {
+    text-align: center;
+    padding: 40px 20px;
+    width: 100%;
+    max-width: 700px;
+}
+
+/* Logo arriba */
+.zona-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.zona-logo i {
+    font-size: 24px;
+    color: #E53935;
+}
+
+.zona-logo span {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1A1A1A;
+}
+
+/* Header */
+.zona-header {
+    margin-bottom: 40px;
+}
+
+.zona-header h2 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1A1A1A;
+    margin-bottom: 8px;
+}
+
+.zona-header p {
+    font-size: 15px;
+    color: #9E9E9E;
+}
+
+/* Cards */
+.zona-cards {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.zone-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 40px 32px;
+    width: 260px;
+    text-align: center;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+    border: 1.5px solid #E0E0E0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.zone-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(229, 57, 53, 0.15);
+    border-color: rgba(229, 57, 53, 0.3);
+}
+
+.zone-icon {
+    font-size: 48px;
+    color: #E53935;
+    margin-bottom: 4px;
+}
+
+.zone-card h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1A1A1A;
+}
+
+.zone-description {
+    font-size: 13px;
+    color: #9E9E9E;
+}
+
+.zone-badge {
+    background: #FFF3E0;
+    color: #E65100;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 9999px;
+    border: 1px solid rgba(230, 81, 0, 0.2);
+}
+
+.zone-button {
+    margin-top: 8px;
+    width: 100%;
+    padding: 13px;
+    background: #E53935;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: 0 2px 8px rgba(229, 57, 53, 0.25);
+}
+
+.zone-button:hover {
+    background: #C62828;
+}
+
+/* Usuario info abajo */
+.zona-usuario {
+    margin-top: 40px;
+    font-size: 13px;
+    color: #BDBDBD;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.zona-usuario strong {
+    color: #555555;
+}
+
+.btn-salir {
+    background: none;
+    border: none;
+    color: #E53935;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 12px;
+    text-decoration: underline;
+}

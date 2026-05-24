@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Xhimanut — Selecciona tu zona</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../../assets/css/global.css"/>
+  <link rel="stylesheet" href="../../assets/css/zona.css"/>
+
+</head>
+<body>
+
+<div class="zona-container">
+
+  <!-- Logo -->
+  <div class="zona-logo">
+    <i class="fa-solid fa-utensils"></i>
+    <span>Xhimanut</span>
+  </div>
+
+  <!-- Header -->
+  <div class="zona-header">
+    <h2>¿Cuál es tu zona hoy?</h2>
+    <p>Selecciona tu área de preparación para este turno</p>
+  </div>
+
+  <!-- Cards -->
+  <div class="zona-cards">
+    <div class="zone-card">
+      <div class="zone-icon">
+        <i class="fa-solid fa-fire-burner"></i>
+      </div>
+      <h3>Cocina</h3>
+      <p class="zone-description">Platos principales y entradas</p>
+      <span class="zone-badge" id="kitchen-badge">— pedidos pendientes</span>
+      <button class="zone-button" onclick="irAZona('cocina')">
+        Ir a Cocina
+      </button>
+    </div>
+
+    <div class="zone-card">
+      <div class="zone-icon">
+        <i class="fa-solid fa-martini-glass"></i>
+      </div>
+      <h3>Bar</h3>
+      <p class="zone-description">Bebidas y dulcería</p>
+      <span class="zone-badge" id="bar-badge">— pedidos pendientes</span>
+      <button class="zone-button" onclick="irAZona('bar')">
+        Ir a Bar
+      </button>
+    </div>
+  </div>
+
+  <!-- Usuario info -->
+  <div class="zona-usuario">
+    <i class="fa-solid fa-user-circle"></i>
+    Conectado como <strong id="usuario-nombre">—</strong>
+    <button class="btn-salir" onclick="cerrarSesion()">Cerrar sesión</button>
+  </div>
+
+</div>
+
+<script src="../../data/db.js"></script>
+<script src="../../assets/js/zona.js"></script>
+
+
+</body>
+</html>

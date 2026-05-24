@@ -1,0 +1,208 @@
+/* ============================================
+   SISTEMA XHIMANUT — agotados.css
+   ============================================ */
+
+.alerta-guardado {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  background: rgba(0,200,83,0.1);
+  border: 1px solid rgba(0,200,83,0.3);
+  border-radius: var(--radius-sm);
+  color: #00C853;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  margin-bottom: var(--space-lg);
+}
+
+/* Tabs */
+.agot-tabs {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-lg);
+}
+
+.agot-tab {
+  padding: 7px var(--space-md);
+  border-radius: var(--radius-full);
+  border: 1.5px solid #E0E0E0;
+  background: #FFFFFF;
+  color: #555555;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.agot-tab:hover  { border-color: #E53935; color: #E53935; }
+.agot-tab.active { background: #E53935; border-color: #E53935; color: #FFFFFF; }
+
+/* Grid */
+.agot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+/* Card de producto */
+.agot-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-md);
+  border: 1.5px solid #E0E0E0;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  transition: all var(--transition);
+}
+
+.agot-card.agotado {
+  border-color: rgba(229,57,53,0.3);
+  background: #FFF5F5;
+}
+
+.agot-card.disponible {
+  border-color: rgba(0,200,83,0.3);
+}
+
+.agot-card-img {
+  height: 120px;
+  overflow: hidden;
+  background: #FAFAFA;
+  position: relative;
+}
+
+.agot-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.agot-card-img .agot-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(229,57,53,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: #fff;
+  font-weight: 800;
+}
+
+.agot-card-body {
+  padding: var(--space-md);
+}
+
+.agot-card-nombre {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: var(--space-xs);
+}
+
+.agot-card-categoria {
+  font-size: var(--font-size-xs);
+  color: #9E9E9E;
+  margin-bottom: var(--space-md);
+}
+
+.agot-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-sm);
+  border-top: 1px solid #F0F0F0;
+}
+
+.agot-stock {
+  font-size: var(--font-size-xs);
+  color: #9E9E9E;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.agot-stock.bajo    { color: #FF9800; font-weight: 700; }
+.agot-stock.agotado { color: #E53935; font-weight: 700; }
+
+/* Toggle switch */
+.agot-toggle-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.agot-toggle-label {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: #555555;
+}
+
+.agot-toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+}
+
+.agot-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.agot-toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: #E0E0E0;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.agot-toggle-slider:before {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.agot-toggle input:checked + .agot-toggle-slider {
+  background: #00C853;
+}
+
+.agot-toggle input:checked + .agot-toggle-slider:before {
+  transform: translateX(20px);
+}
+
+/* Footer */
+.agot-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--space-md) 0;
+}
+
+.btn-guardar-agotados {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 12px var(--space-xl);
+  background: #E53935;
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--transition);
+  box-shadow: 0 2px 8px rgba(229,57,53,0.25);
+}
+
+.btn-guardar-agotados:hover { background: #C62828; }

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Xhimanut — Cuenta</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../../assets/css/global.css"/>
+  <link rel="stylesheet" href="../../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../../assets/css/cuenta.css"/>
+</head>
+<body>
+
+<div id="layout-container"></div>
+
+<div class="app-container">
+  <main class="main-content">
+
+    <!-- Header -->
+    <div class="page-header page-header-actions">
+      <div>
+        <h1><i class="fa-solid fa-file-invoice" style="color:#E53935"></i> Solicitar cuenta</h1>
+        <p class="text-muted">Revisa el pedido y solicita el cobro a caja</p>
+      </div>
+      <a href="pedidos.html" class="btn-volver-link">
+        <i class="fa-solid fa-arrow-left"></i> Volver a mesas
+      </a>
+    </div>
+
+    <!-- Sin mesa seleccionada -->
+    <div class="sin-mesa hidden" id="sin-mesa">
+      <i class="fa-solid fa-chair"></i>
+      <h3>Ninguna mesa seleccionada</h3>
+      <p>Selecciona una mesa ocupada desde el panel de mesas</p>
+      <a href="pedidos.html" class="btn-ir-mesas">
+        <i class="fa-solid fa-house"></i> Ir a mesas
+      </a>
+    </div>
+
+    <!-- Contenido principal -->
+    <div id="contenido-cuenta">
+
+      <!-- Selector de mesa -->
+      <div class="mesa-selector-wrap">
+        <label class="selector-label">
+          <i class="fa-solid fa-chair"></i> Selecciona la mesa
+        </label>
+        <div class="mesas-ocupadas-grid" id="mesas-ocupadas-grid"></div>
+      </div>
+
+      <!-- Detalle del pedido -->
+      <div class="cuenta-layout hidden" id="cuenta-layout">
+
+        <!-- Panel izquierdo: detalle -->
+        <div class="cuenta-detalle">
+
+          <div class="cuenta-detalle-header">
+            <div>
+              <h2 id="cuenta-mesa-titulo">Mesa —</h2>
+              <p class="text-muted" id="cuenta-mesa-info"></p>
+            </div>
+            <div class="cuenta-badges">
+              <span class="badge badge-ocupada">Ocupada</span>
+              <span class="pedido-hora" id="cuenta-pedido-hora"></span>
+            </div>
+          </div>
+
+          <!-- Lista de productos -->
+          <div class="cuenta-productos" id="cuenta-productos"></div>
+
+          <!-- Agregar más productos -->
+          <button class="btn-agregar-mas" id="btn-agregar-mas" onclick="toggleAgregarMas()">
+            <i class="fa-solid fa-plus"></i> Agregar más productos
+          </button>
+
+          <!-- Panel de agregar productos (oculto por defecto) -->
+          <div class="agregar-mas-panel hidden" id="agregar-mas-panel">
+            <div class="agregar-mas-header">
+              <h4><i class="fa-solid fa-utensils"></i> Agregar productos</h4>
+              <button class="btn-cerrar-panel" onclick="toggleAgregarMas()">
+                <i class="fa-solid fa-x"></i>
+              </button>
+            </div>
+
+            <!-- Tabs categorías -->
+            <div class="categorias-tabs-mini" id="categorias-tabs-mini"></div>
+
+            <!-- Grid mini de productos -->
+            <div class="productos-mini-grid" id="productos-mini-grid"></div>
+
+            <!-- Carrito adicional -->
+            <div class="carrito-adicional hidden" id="carrito-adicional">
+              <div class="carrito-adicional-items" id="carrito-adicional-items"></div>
+              <button class="btn-confirmar-adicional" onclick="confirmarAdicional()">
+                <i class="fa-solid fa-plus"></i> Confirmar y agregar al pedido
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Panel derecho: resumen y cobro -->
+        <div class="cuenta-resumen">
+
+          <div class="resumen-header">
+            <h3><i class="fa-solid fa-receipt"></i> Resumen</h3>
+          </div>
+
+          <!-- Subtotales -->
+          <div class="resumen-items" id="resumen-items"></div>
+
+          <!-- Línea divisoria -->
+          <div class="resumen-divider"></div>
+
+          <!-- Totales -->
+          <div class="resumen-totales">
+            <div class="resumen-fila">
+              <span class="resumen-fila-label">Subtotal</span>
+              <span class="resumen-fila-valor" id="resumen-subtotal">$0</span>
+            </div>
+            <div class="resumen-fila total">
+              <span class="resumen-fila-label">Total</span>
+              <span class="resumen-fila-valor total-grande" id="resumen-total">$0</span>
+            </div>
+          </div>
+
+          <!-- Info pedido -->
+          <div class="resumen-info">
+            <div class="resumen-info-item">
+              <i class="fa-solid fa-hashtag"></i>
+              <span>Pedido <strong id="resumen-pedido-id">#—</strong></span>
+            </div>
+            <div class="resumen-info-item">
+              <i class="fa-solid fa-clock"></i>
+              <span id="resumen-hora">—</span>
+            </div>
+            <div class="resumen-info-item">
+              <i class="fa-solid fa-bowl-food"></i>
+              <span id="resumen-items-count">— productos</span>
+            </div>
+          </div>
+
+          <!-- Botón solicitar cuenta -->
+          <button class="btn-solicitar-cuenta" id="btn-solicitar-cuenta" onclick="solicitarCuenta()">
+            <i class="fa-solid fa-paper-plane"></i>
+            Solicitar cuenta a caja
+          </button>
+
+          <p class="resumen-nota">
+            <i class="fa-solid fa-circle-info"></i>
+            Caja recibirá el pedido y generará la factura
+          </p>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal confirmación -->
+    <div class="modal-overlay hidden" id="modal-cuenta">
+      <div class="modal-cuenta">
+        <div class="modal-cuenta-icon">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h3>¡Cuenta enviada a caja!</h3>
+        <p id="modal-cuenta-msg">La cuenta fue enviada correctamente.</p>
+        <div class="modal-cuenta-total" id="modal-cuenta-total"></div>
+        <button class="btn-solicitar-cuenta" onclick="cerrarModalCuenta()">
+          Aceptar
+        </button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="../../data/db.js"></script>
+<script src="../../assets/js/layout.js"></script>
+<script src="../../assets/js/cuenta.js"></script>
+<script>
+  initLayout('Cuenta');
+  initCuenta();
+</script>
+
+</body>
+</html>

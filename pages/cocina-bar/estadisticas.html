@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Xhimanut — Estadísticas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../../assets/css/global.css"/>
+  <link rel="stylesheet" href="../../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../../assets/css/estadisticas.css"/>
+</head>
+<body>
+
+<div id="layout-container"></div>
+
+<div class="app-container">
+  <main class="main-content">
+
+    <div class="page-header page-header-actions">
+      <div>
+        <h1><i class="fa-solid fa-chart-bar" style="color:#E53935"></i> Estadísticas del turno</h1>
+        <p class="text-muted" id="zona-label">Cargando...</p>
+      </div>
+      <button class="btn-refresh-stats" onclick="initEstadisticas()">
+        <i class="fa-solid fa-rotate-right"></i> Actualizar
+      </button>
+    </div>
+
+    <!-- Tarjetas resumen -->
+    <div class="est-cards-grid" id="est-cards"></div>
+
+    <!-- Pedidos completados hoy -->
+    <div class="est-section">
+      <h3 class="est-section-title">
+        <i class="fa-solid fa-circle-check"></i> Pedidos completados hoy
+      </h3>
+      <div class="est-tabla-wrap">
+        <table class="est-tabla">
+          <thead>
+            <tr>
+              <th>#Pedido</th>
+              <th>Mesa</th>
+              <th>Hora</th>
+              <th>Items</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-completados"></tbody>
+        </table>
+        <div class="est-vacio hidden" id="vacio-completados">
+          <i class="fa-solid fa-inbox"></i>
+          <p>No hay pedidos completados aún</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Productos más preparados -->
+    <div class="est-section">
+      <h3 class="est-section-title">
+        <i class="fa-solid fa-fire"></i> Productos más preparados hoy
+      </h3>
+      <div class="est-productos-grid" id="est-productos"></div>
+    </div>
+
+    <!-- Reporte de problemas -->
+    <div class="est-section">
+      <h3 class="est-section-title">
+        <i class="fa-solid fa-triangle-exclamation" style="color:#FF9800"></i> Problemas reportados
+      </h3>
+      <div id="problemas-lista"></div>
+    </div>
+
+  </main>
+</div>
+
+<script src="../../data/db.js"></script>
+<script src="../../assets/js/layout.js"></script>
+<script src="../../assets/js/estadisticas.js"></script>
+<script>
+  initLayout('Estadísticas');
+  initEstadisticas();
+</script>
+
+</body>
+</html>

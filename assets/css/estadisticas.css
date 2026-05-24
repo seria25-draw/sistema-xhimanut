@@ -1,0 +1,229 @@
+/* ============================================
+   SISTEMA XHIMANUT — estadisticas.css
+   ============================================ */
+
+.btn-refresh-stats {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 9px var(--space-lg);
+  border-radius: var(--radius-sm);
+  border: 1.5px solid #E0E0E0;
+  background: #FFFFFF;
+  color: #555555;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.btn-refresh-stats:hover {
+  border-color: #E53935;
+  color: #E53935;
+}
+
+/* Cards resumen */
+.est-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.est-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  border: 1px solid #E0E0E0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.est-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin-bottom: var(--space-sm);
+}
+
+.est-card-icon.red    { background: rgba(229,57,53,0.1);  color: #E53935; }
+.est-card-icon.green  { background: rgba(0,200,83,0.1);   color: #00C853; }
+.est-card-icon.orange { background: rgba(255,152,0,0.1);  color: #FF9800; }
+.est-card-icon.blue   { background: rgba(33,150,243,0.1); color: #2196F3; }
+
+.est-card-valor {
+  font-size: 32px;
+  font-weight: 800;
+  color: #1A1A1A;
+  line-height: 1;
+}
+
+.est-card-label {
+  font-size: var(--font-size-xs);
+  color: #9E9E9E;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Secciones */
+.est-section {
+  background: #FFFFFF;
+  border-radius: var(--radius-md);
+  border: 1px solid #E0E0E0;
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.est-section-title {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.est-section-title i { color: #E53935; }
+
+/* Tabla */
+.est-tabla-wrap { overflow-x: auto; }
+
+.est-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.est-tabla th {
+  text-align: left;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: #9E9E9E;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.est-tabla td {
+  padding: var(--space-md);
+  border-bottom: 1px solid #F5F5F5;
+  color: #555555;
+}
+
+.est-tabla tr:last-child td { border-bottom: none; }
+
+.est-tabla tr:hover td { background: #FAFAFA; }
+
+.est-tabla td:first-child { font-weight: 700; color: #1A1A1A; }
+
+/* Badge estado en tabla */
+.est-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.est-badge.listo          { background: rgba(0,200,83,0.12);   color: #00C853; }
+.est-badge.en_preparacion { background: rgba(33,150,243,0.12); color: #2196F3; }
+.est-badge.pendiente      { background: rgba(255,152,0,0.12);  color: #FF9800; }
+
+/* Vacío */
+.est-vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  gap: var(--space-sm);
+  color: #BDBDBD;
+  text-align: center;
+}
+
+.est-vacio i { font-size: 32px; opacity: 0.4; }
+
+/* Productos más preparados */
+.est-productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-md);
+}
+
+.est-producto-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border-radius: var(--radius-sm);
+  border: 1px solid #F0F0F0;
+  background: #FAFAFA;
+}
+
+.est-prod-rank {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #E53935;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.est-prod-rank.gold   { background: #FFB300; }
+.est-prod-rank.silver { background: #9E9E9E; }
+.est-prod-rank.bronze { background: #795548; }
+
+.est-prod-nombre {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: #1A1A1A;
+  flex: 1;
+}
+
+.est-prod-count {
+  font-size: var(--font-size-xs);
+  color: #9E9E9E;
+}
+
+/* Problemas */
+.problema-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255,152,0,0.2);
+  background: rgba(255,152,0,0.05);
+  margin-bottom: var(--space-sm);
+}
+
+.problema-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255,152,0,0.15);
+  color: #FF9800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.problema-texto { font-size: var(--font-size-sm); color: #555555; }
+.problema-hora  { font-size: var(--font-size-xs); color: #9E9E9E; margin-top: 2px; }
+.sin-problemas  { font-size: var(--font-size-sm); color: #BDBDBD; text-align: center; padding: var(--space-lg); }

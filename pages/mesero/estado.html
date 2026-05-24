@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Xhimanut — Estado del pedido</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../../assets/css/global.css"/>
+  <link rel="stylesheet" href="../../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../../assets/css/mesero.css"/>
+  <link rel="stylesheet" href="../../assets/css/estado.css"/>
+</head>
+<body>
+
+<div id="layout-container"></div>
+
+<div class="app-container">
+  <main class="main-content">
+
+    <!-- Header -->
+    <div class="page-header page-header-actions">
+      <div>
+        <h1><i class="fa-solid fa-eye" style="color:var(--color-primary)"></i> Estado de pedidos</h1>
+        <p class="text-muted">Seguimiento en tiempo real de tus pedidos activos</p>
+      </div>
+      <button class="btn-refresh" onclick="actualizarEstados()">
+        <i class="fa-solid fa-rotate-right" id="refresh-icon"></i>
+        Actualizar
+      </button>
+    </div>
+
+    <!-- Indicador de última actualización -->
+    <div class="ultima-actualizacion">
+      <i class="fa-solid fa-clock"></i>
+      Última actualización: <span id="hora-actualizacion">—</span>
+    </div>
+
+    <!-- Sin pedidos activos -->
+    <div class="sin-pedidos hidden" id="sin-pedidos">
+      <i class="fa-solid fa-mug-hot"></i>
+      <h3>Sin pedidos activos</h3>
+      <p>No tienes pedidos en curso en este momento</p>
+      <a href="pedidos.html" class="btn-enviar" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;font-weight:700;">
+        <i class="fa-solid fa-plus"></i> Tomar nuevo pedido
+      </a>
+    </div>
+
+    <!-- Grid de pedidos activos -->
+    <div class="pedidos-grid" id="pedidos-grid"></div>
+
+    <!-- Toast notificación -->
+    <div class="toast hidden" id="toast">
+      <div class="toast-icon"><i class="fa-solid fa-bell"></i></div>
+      <div class="toast-body">
+        <span class="toast-titulo" id="toast-titulo">Pedido listo</span>
+        <span class="toast-msg" id="toast-msg">Mesa — lista para entregar</span>
+      </div>
+      <button class="toast-close" onclick="cerrarToast()">
+        <i class="fa-solid fa-x"></i>
+      </button>
+    </div>
+
+  </main>
+</div>
+
+<script src="../../data/db.js"></script>
+<script src="../../assets/js/layout.js"></script>
+<script src="../../assets/js/estado.js"></script>
+<script>
+  initLayout('Estado pedido');
+  initEstado();
+</script>
+
+</body>
+</html>

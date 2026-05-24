@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Xhimanut — Menú</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../../assets/css/global.css"/>
+  <link rel="stylesheet" href="../../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../../assets/css/menu.css"/>
+</head>
+<body>
+
+<div id="layout-container"></div>
+
+<div class="app-container">
+  <main class="main-content">
+
+    <div class="page-header">
+      <div>
+        <h1><i class="fa-solid fa-book-open" style="color:#E53935"></i> Menú del restaurante</h1>
+        <p class="text-muted">Consulta los productos disponibles por categoría</p>
+      </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="menu-filtros">
+      <div class="buscador-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="buscador-menu" placeholder="Buscar producto..." oninput="filtrarMenu()"/>
+      </div>
+      <div class="menu-tabs" id="menu-tabs"></div>
+    </div>
+
+    <!-- Filtro disponibilidad -->
+    <div class="menu-disponibilidad">
+      <button class="disp-btn active" id="btn-todos" onclick="filtrarDisponibilidad('todos')">
+        Todos
+      </button>
+      <button class="disp-btn" id="btn-disponibles" onclick="filtrarDisponibilidad('disponibles')">
+        <i class="fa-solid fa-circle-check"></i> Disponibles
+      </button>
+      <button class="disp-btn" id="btn-agotados" onclick="filtrarDisponibilidad('agotados')">
+        <i class="fa-solid fa-ban"></i> Agotados
+      </button>
+    </div>
+
+    <!-- Grid de productos -->
+    <div class="menu-grid" id="menu-grid"></div>
+
+  </main>
+</div>
+
+<script src="../../data/db.js"></script>
+<script src="../../assets/js/layout.js"></script>
+<script src="../../assets/js/menu.js"></script>
+<script>
+  initLayout('Menú');
+  initMenu();
+</script>
+
+</body>
+</html>

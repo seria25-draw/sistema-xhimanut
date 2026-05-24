@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Xhimanut — Transferir mesa</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../../assets/css/global.css"/>
+  <link rel="stylesheet" href="../../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../../assets/css/transferir.css"/>
+</head>
+<body>
+
+<div id="layout-container"></div>
+
+<div class="app-container">
+  <main class="main-content">
+
+    <div class="page-header">
+      <div>
+        <h1><i class="fa-solid fa-right-left" style="color:#E53935"></i> Transferir mesa</h1>
+        <p class="text-muted">Asigna una mesa a otro mesero disponible</p>
+      </div>
+    </div>
+
+    <div class="transferir-layout">
+
+      <!-- Paso 1: Seleccionar mesa -->
+      <div class="transferir-paso">
+        <div class="paso-header">
+          <div class="paso-numero">1</div>
+          <div>
+            <h3>Selecciona la mesa</h3>
+            <p class="text-muted">Elige la mesa que deseas transferir</p>
+          </div>
+        </div>
+
+        <!-- Filtro de zonas -->
+        <div class="zona-tabs" id="zona-tabs"></div>
+
+        <!-- Grid de mesas -->
+        <div class="mesas-transferir-grid" id="mesas-transferir-grid"></div>
+      </div>
+
+      <!-- Paso 2: Seleccionar mesero -->
+      <div class="transferir-paso" id="paso-mesero" style="opacity:0.4;pointer-events:none">
+        <div class="paso-header">
+          <div class="paso-numero">2</div>
+          <div>
+            <h3>Selecciona el mesero</h3>
+            <p class="text-muted">Elige el mesero que atenderá la mesa</p>
+          </div>
+        </div>
+
+        <div class="meseros-grid" id="meseros-grid"></div>
+      </div>
+
+      <!-- Paso 3: Confirmar -->
+      <div class="transferir-resumen hidden" id="transferir-resumen">
+        <div class="paso-header">
+          <div class="paso-numero">3</div>
+          <div>
+            <h3>Confirmar transferencia</h3>
+            <p class="text-muted">Revisa y confirma la asignación</p>
+          </div>
+        </div>
+
+        <div class="resumen-transferir">
+          <div class="resumen-transferir-item">
+            <div class="resumen-transferir-icon">
+              <i class="fa-solid fa-chair"></i>
+            </div>
+            <div>
+              <span class="resumen-label">Mesa</span>
+              <span class="resumen-valor" id="resumen-mesa">—</span>
+            </div>
+          </div>
+
+          <div class="resumen-flecha">
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+
+          <div class="resumen-transferir-item">
+            <div class="resumen-transferir-icon mesero">
+              <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div>
+              <span class="resumen-label">Nuevo mesero</span>
+              <span class="resumen-valor" id="resumen-mesero">—</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-confirmar-transferencia" onclick="confirmarTransferencia()">
+          <i class="fa-solid fa-check"></i> Confirmar transferencia
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal éxito -->
+    <div class="modal-overlay hidden" id="modal-transferir">
+      <div class="modal-transferir">
+        <div class="modal-transferir-icon">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h3>¡Mesa transferida!</h3>
+        <p id="modal-transferir-msg"></p>
+        <button class="btn-confirmar-transferencia" onclick="cerrarModalTransferir()" style="margin-top:8px">
+          Aceptar
+        </button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="../../data/db.js"></script>
+<script src="../../assets/js/layout.js"></script>
+<script src="../../assets/js/transferir.js"></script>
+<script>
+  initLayout('Transferir mesa');
+  initTransferir();
+</script>
+
+</body>
+</html>

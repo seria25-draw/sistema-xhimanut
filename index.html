@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Xhimanut — Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="assets/css/global.css"/>
+  <link rel="stylesheet" href="assets/css/login.css"/>
+</head>
+<body>
+
+<div class="auth-layout">
+
+  <!-- ============================
+       PANEL IZQUIERDO
+  ============================= -->
+  <div class="auth-left">
+    <div class="auth-left-content">
+      <h1 class="brand-name">Xhimanut</h1>
+      <p class="brand-subtitle">Sistema de gestión</p>
+      <div class="brand-divider"></div>
+      <!-- <p class="brand-tagline">Más de 5 años de trayectoria</p> -->
+    </div>
+  </div>
+
+  <!-- ============================
+       PANEL DERECHO
+  ============================= -->
+  <div class="auth-right">
+
+    <!-- SCREEN 1: Login -->
+    <div id="screen-login" class="auth-screen active">
+
+      <h2 class="auth-title">Bienvenido de vuelta</h2>
+      <p class="auth-subtitle">Inicia sesión para continuar</p>
+
+      <div class="field-group">
+        <label class="field-label" for="login-cedula">Cédula</label>
+        <div class="input-wrapper">
+          <i class="fa-solid fa-id-card input-icon"></i>
+          <input type="text" id="login-cedula" class="auth-input" placeholder="Tu número de cédula"/>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="login-password">Contraseña</label>
+        <div class="input-wrapper">
+          <i class="fa-solid fa-lock input-icon"></i>
+          <input type="password" id="login-password" class="auth-input" placeholder="••••••••"/>
+          <button class="toggle-password" onclick="togglePassword('login-password', this)">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="login-options">
+        <label class="checkbox-label">
+          <input type="checkbox" id="remember-me"/>
+          Recordarme
+        </label>
+        <!-- <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a> -->
+      </div>
+
+      <p class="error-message" id="login-error"></p>
+
+      <button class="auth-button" onclick="login()">
+        Iniciar sesión
+      </button>
+
+      <!-- <div class="auth-divider"><span>o continúa con</span></div>
+
+      <button class="google-button">
+        <i class="fa-brands fa-google"></i>
+        Iniciar sesión con Google
+      </button> -->
+
+      <p class="auth-switch">
+        ¿No tienes cuenta?
+        <a href="#" onclick="showRegister()">Regístrate aquí</a>
+      </p>
+
+    </div>
+
+    <!-- SCREEN 2: Registro -->
+    <div id="screen-register" class="auth-screen">
+
+      <h2 class="auth-title">Únete a Xhimanut</h2>
+      <p class="auth-subtitle">Crea tu cuenta en menos de 2 minutos</p>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label" for="reg-firstname">Nombre</label>
+          <input type="text" id="reg-firstname" class="auth-input" placeholder="Juan"/>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="reg-lastname">Apellido</label>
+          <input type="text" id="reg-lastname" class="auth-input" placeholder="García"/>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="reg-cedula">Cédula</label>
+        <div class="input-wrapper">
+          <i class="fa-solid fa-id-card input-icon"></i>
+          <input type="text" id="reg-cedula" class="auth-input" placeholder="Tu número de cédula"/>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="reg-phone">Teléfono (opcional)</label>
+        <div class="input-wrapper">
+          <i class="fa-solid fa-phone input-icon"></i>
+          <input type="text" id="reg-phone" class="auth-input" placeholder="+57 300 000 0000"/>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Tu rol en el restaurante</label>
+        <div class="role-grid" id="register-roles">
+          <button class="role-btn" onclick="selectRegisterRole('waiter', this)">
+            <i class="fa-solid fa-utensils"></i> Mesero
+          </button>
+          <button class="role-btn" onclick="selectRegisterRole('kitchen', this)">
+            <i class="fa-solid fa-fire-burner"></i> Cocina
+          </button>
+          <button class="role-btn" onclick="selectRegisterRole('bar', this)">
+            <i class="fa-solid fa-wine-glass"></i> Bar
+          </button>
+          <button class="role-btn" onclick="selectRegisterRole('cashier', this)">
+            <i class="fa-solid fa-cash-register"></i> Caja
+          </button>
+          <button class="role-btn" onclick="selectRegisterRole('admin', this)">
+            <i class="fa-solid fa-gear"></i> Admin
+          </button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="reg-password">Contraseña</label>
+        <div class="input-wrapper">
+          <i class="fa-solid fa-lock input-icon"></i>
+          <input type="password" id="reg-password" class="auth-input" placeholder="••••••••"/>
+          <button class="toggle-password" onclick="togglePassword('reg-password', this)">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="reg-confirm">Confirmar contraseña</label>
+        <div class="input-wrapper">
+          <i class="fa-solid fa-lock input-icon"></i>
+          <input type="password" id="reg-confirm" class="auth-input" placeholder="••••••••"/>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="terms"/>
+          Acepto los <a href="#" class="forgot-link">términos y condiciones</a>
+        </label>
+        <label class="checkbox-label" style="margin-top:8px;">
+          <input type="checkbox" id="notifications"/>
+          Acepto recibir notificaciones del sistema
+        </label>
+      </div>
+
+      <p class="error-message" id="register-error"></p>
+
+      <button class="auth-button" onclick="register()">
+        Crear cuenta
+      </button>
+
+      <p class="auth-switch">
+        ¿Ya tienes cuenta?
+        <a href="#" onclick="showLogin()">Inicia sesión</a>
+      </p>
+
+    </div>
+
+  </div>
+</div>
+
+<script src="data/db.js"></script>
+<script src="assets/js/auth.js"></script>
+
+</body>
+</html>
