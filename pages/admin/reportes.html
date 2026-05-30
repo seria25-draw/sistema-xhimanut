@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xhimanut - Dashboard</title>
+    <title>Xhimanut - Reportes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="../../assets/css/layout.css">
@@ -15,24 +15,24 @@
 
     <div id="admin-sidebar"></div>
 
-    <header class="admin-navbar" id="admin-navbar">
+    <header class="admin-navbar">
         <div class="admin-navbar-left">
-            <span class="admin-breadcrumb">Xhimanut / <strong id="nav-page-title">Dashboard</strong></span>
+            <span class="admin-breadcrumb">Xhimanut / <strong>Reportes</strong></span>
         </div>
         <div class="admin-navbar-center">
             <div class="admin-search-wrapper">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="admin-search" class="admin-search" placeholder="Buscar...">
+                <input type="text" id="admin-search" class="admin-search" placeholder="Buscar en reportes...">
             </div>
         </div>
         <div class="admin-navbar-right">
-            <button class="admin-notif-btn" id="btn-notif" onclick="toggleNotifPanel()">
+            <button class="admin-notif-btn" onclick="toggleNotifPanel()">
                 <i class="fa-solid fa-bell"></i>
                 <span class="admin-notif-dot hidden" id="notif-dot"></span>
             </button>
-            <div class="admin-user-btn" id="btn-user" onclick="togglePerfilPanel()">
+            <div class="admin-user-btn" onclick="togglePerfilPanel()">
                 <div class="admin-user-info">
-                    <span class="admin-user-name" id="nav-user-name">Carlos Jiménez</span>
+                    <span class="admin-user-name" id="nav-user-name">Admin</span>
                     <span class="admin-user-role">Administrador</span>
                 </div>
                 <div class="admin-user-avatar" id="nav-user-avatar">C</div>
@@ -41,7 +41,6 @@
         </div>
     </header>
 
-    <!-- Panel notificaciones -->
     <div class="admin-panel-overlay hidden" id="panel-overlay" onclick="cerrarPaneles()"></div>
     <div class="admin-panel hidden" id="panel-notif">
         <div class="admin-panel-header">
@@ -55,8 +54,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Panel perfil -->
     <div class="admin-panel hidden" id="panel-perfil">
         <div class="admin-panel-header">
             <h3><i class="fa-solid fa-user"></i> Mi perfil</h3>
@@ -65,7 +62,7 @@
         <div class="admin-panel-body">
             <div class="perfil-avatar-wrap">
                 <div class="perfil-avatar" id="perfil-avatar-grande">C</div>
-                <h4 id="perfil-nombre-grande">Carlos Jiménez</h4>
+                <h4 id="perfil-nombre-grande">Admin</h4>
                 <span class="perfil-rol-badge">Administrador</span>
             </div>
             <div class="perfil-info-seccion">
@@ -75,13 +72,6 @@
                     <div>
                         <span class="perfil-info-label">Cédula</span>
                         <span class="perfil-info-valor" id="perfil-cedula">—</span>
-                    </div>
-                </div>
-                <div class="perfil-info-item">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    <div>
-                        <span class="perfil-info-label">Rol</span>
-                        <span class="perfil-info-valor">Administrador</span>
                     </div>
                 </div>
             </div>
@@ -118,74 +108,63 @@
 
             <div class="page-header">
                 <div>
-                    <h1 class="page-title">Dashboard General</h1>
-                    <p class="page-subtitle" id="dashboard-date"></p>
+                    <h1 class="page-title">Reportes y Análisis</h1>
+                    <p class="page-subtitle" id="reporte-rango"></p>
                 </div>
+                <button class="btn-primary" onclick="exportarPDF()">
+                    <i class="fa-solid fa-file-pdf"></i> Exportar PDF
+                </button>
             </div>
 
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-info">
-                        <p class="stat-label">Ventas del día</p>
-                        <p class="stat-value" id="stat-ventas">$0</p>
-                        <span class="stat-change up"><i class="fa-solid fa-arrow-up"></i> +12% vs ayer</span>
+                        <p class="stat-label"><i class="fa-solid fa-dollar-sign" style="color:#ea580c;"></i> Ventas
+                            totales</p>
+                        <p class="stat-value" id="r-ventas-total">$0</p>
+                        <span class="stat-change up" id="r-ventas-change"></span>
                     </div>
-                    <i class="fa-solid fa-dollar-sign stat-icon"></i>
                 </div>
                 <div class="stat-card">
                     <div class="stat-info">
-                        <p class="stat-label">Órdenes activas</p>
-                        <p class="stat-value" id="stat-ordenes">0</p>
-                        <span class="stat-change" style="color:#9ca3af;"><i class="fa-solid fa-clock"></i> Promedio: 15
-                            min</span>
+                        <p class="stat-label"><i class="fa-solid fa-chart-line" style="color:#ea580c;"></i> Ticket
+                            promedio</p>
+                        <p class="stat-value" id="r-ticket">$0</p>
+                        <span class="stat-change up" id="r-ticket-change"></span>
                     </div>
-                    <i class="fa-solid fa-clipboard-list stat-icon"></i>
                 </div>
                 <div class="stat-card">
                     <div class="stat-info">
-                        <p class="stat-label">Mesas ocupadas</p>
-                        <p class="stat-value" id="stat-mesas">0 / 0</p>
-                        <span class="stat-change" style="color:#9ca3af;" id="stat-ocupacion">Ocupación 0%</span>
+                        <p class="stat-label"><i class="fa-solid fa-calendar" style="color:#2563eb;"></i> Órdenes
+                            totales</p>
+                        <p class="stat-value" id="r-ordenes">0</p>
+                        <span class="stat-change" style="color:#9ca3af;" id="r-ordenes-day"></span>
                     </div>
-                    <i class="fa-solid fa-users stat-icon"></i>
                 </div>
                 <div class="stat-card">
                     <div class="stat-info">
-                        <p class="stat-label">Ticket promedio</p>
-                        <p class="stat-value" id="stat-ticket">$0</p>
-                        <span class="stat-change down"><i class="fa-solid fa-arrow-down"></i> -5% vs ayer</span>
+                        <p class="stat-label"><i class="fa-solid fa-dollar-sign" style="color:#ea580c;"></i> Propinas
+                            totales</p>
+                        <p class="stat-value" id="r-propinas">$0</p>
+                        <span class="stat-change" style="color:#9ca3af;">10% promedio</span>
                     </div>
-                    <i class="fa-solid fa-chart-line stat-icon"></i>
                 </div>
             </div>
 
             <div class="dashboard-grid">
                 <div class="section-card">
-                    <h3 class="section-title">Empleados en turno</h3>
-                    <div id="employees-on-shift"></div>
+                    <h3 class="section-title">Ventas por día</h3>
+                    <div id="ventas-por-dia"></div>
                 </div>
                 <div class="section-card">
-                    <h3 class="section-title">Alertas del sistema</h3>
-                    <div id="system-alerts">
-                        <div class="alert-item red">
-                            <p class="alert-title">Stock bajo</p>
-                            <p class="alert-desc">5 productos con inventario crítico</p>
-                        </div>
-                        <div class="alert-item orange">
-                            <p class="alert-title">Mesa esperando</p>
-                            <p class="alert-desc" id="alert-mesa">Verificando mesas...</p>
-                        </div>
-                        <div class="alert-item green">
-                            <p class="alert-title">Todo en orden</p>
-                            <p class="alert-desc">No hay alertas críticas adicionales</p>
-                        </div>
-                    </div>
+                    <h3 class="section-title">Top 10 Productos</h3>
+                    <div id="top-productos-reporte"></div>
                 </div>
             </div>
 
-            <div class="section-card">
-                <h3 class="section-title">Productos más vendidos hoy</h3>
-                <div id="top-products"></div>
+            <div class="section-card" style="margin-top: 20px;">
+                <h3 class="section-title">Desempeño por turno</h3>
+                <div class="turno-grid" id="turno-grid"></div>
             </div>
 
         </div>
@@ -194,7 +173,7 @@
     <script src="../../data/db.js"></script>
     <script src="../../assets/js/admin.js"></script>
     <script>
-        initAdminPage("dashboard");
+        initAdminPage("reportes");
     </script>
 </body>
 

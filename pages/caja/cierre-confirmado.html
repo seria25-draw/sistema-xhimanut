@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xhimanut - Cierre confirmado</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/layout.css">
+    <link rel="stylesheet" href="../../assets/css/caja.css">
+</head>
+
+<body>
+
+    <div id="layout-container"></div>
+
+    <main class="main-content">
+        <div class="page-content">
+
+            <div class="cierre-confirmado-wrap">
+
+                <div class="cierre-confirmado-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+
+                <h1 class="cierre-confirmado-titulo">¡Caja cerrada correctamente!</h1>
+                <p class="cierre-confirmado-sub">El resumen fue guardado y enviado al administrador</p>
+
+                <div class="cierre-resumen-card">
+                    <h3 style="font-size:16px; font-weight:700; color:#1f2937; margin-bottom:20px; text-align:center;">
+                        Resumen del cierre
+                    </h3>
+                    <div class="cierre-resumen-fila">
+                        <span>Ventas totales:</span>
+                        <span id="res-ventas">$0</span>
+                    </div>
+                    <div class="cierre-resumen-fila">
+                        <span>Transacciones:</span>
+                        <span id="res-transacciones">0</span>
+                    </div>
+                    <div class="cierre-resumen-fila">
+                        <span>Efectivo:</span>
+                        <span id="res-efectivo">$0</span>
+                    </div>
+                    <div class="cierre-resumen-fila">
+                        <span>Nequi:</span>
+                        <span id="res-nequi">$0</span>
+                    </div>
+                    <div class="cierre-resumen-fila">
+                        <span>Propinas:</span>
+                        <span id="res-propinas">$0</span>
+                    </div>
+                    <div class="cierre-resumen-fila">
+                        <span>Hora de cierre:</span>
+                        <span id="res-hora">—</span>
+                    </div>
+
+                    <div class="cierre-enviado-badge">
+                        <i class="fa-solid fa-check"></i>
+                        Reporte enviado al administrador · <span id="res-hora-badge">—</span>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:12px; justify-content:center; margin-top:24px;">
+                    <button class="btn-red" onclick="window.location.href='factura.html'">
+                        Volver al inicio
+                    </button>
+                    <button class="btn-outline-red" onclick="verReporteCompleto()">
+                        Ver reporte completo
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <script src="../../data/db.js"></script>
+    <script src="../../assets/js/layout.js"></script>
+    <script src="../../assets/js/caja.js"></script>
+    <script>
+        const loggedUser = sessionStorage.getItem("usuario");
+        if (!loggedUser) {
+            window.location.href = "../../index.html";
+        } else {
+            const user = JSON.parse(loggedUser);
+            sessionStorage.setItem("usuario", JSON.stringify({
+                nombre: user.nombre || "Cajero",
+                rol: "caja",
+                cedula: user.cedula || "—",
+                id: user.id || 1
+            }));
+            initLayout("Cierre confirmado");
+            initCierreConfirmado();
+        }
+    </script>
+
+</body>
+
+</html>
