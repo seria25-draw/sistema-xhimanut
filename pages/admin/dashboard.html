@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xhimanut - Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../../assets/css/global.css" />
+    <link rel="stylesheet" href="../../assets/css/layout.css" />
+    <link rel="stylesheet" href="../../assets/css/admin.css" />
+  </head>
+
+  <body>
+    <div id="layout-container"></div>
+    <main class="admin-main">
+      <div class="page-content">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Dashboard General</h1>
+            <p class="page-subtitle" id="dashboard-date"></p>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-info">
+              <p class="stat-label">Ventas del día</p>
+              <p class="stat-value" id="stat-ventas">$0</p>
+              <span class="stat-change up"
+                ><i class="fa-solid fa-arrow-up"></i> +12% vs ayer</span
+              >
+            </div>
+            <i class="fa-solid fa-dollar-sign stat-icon"></i>
+          </div>
+          <div class="stat-card">
+            <div class="stat-info">
+              <p class="stat-label">Órdenes activas</p>
+              <p class="stat-value" id="stat-ordenes">0</p>
+              <span class="stat-change" style="color: #9ca3af"
+                ><i class="fa-solid fa-clock"></i> Promedio: 15 min</span
+              >
+            </div>
+            <i class="fa-solid fa-clipboard-list stat-icon"></i>
+          </div>
+          <div class="stat-card">
+            <div class="stat-info">
+              <p class="stat-label">Mesas ocupadas</p>
+              <p class="stat-value" id="stat-mesas">0 / 0</p>
+              <span
+                class="stat-change"
+                style="color: #9ca3af"
+                id="stat-ocupacion"
+                >Ocupación 0%</span
+              >
+            </div>
+            <i class="fa-solid fa-users stat-icon"></i>
+          </div>
+          <div class="stat-card">
+            <div class="stat-info">
+              <p class="stat-label">Ticket promedio</p>
+              <p class="stat-value" id="stat-ticket">$0</p>
+              <span class="stat-change down"
+                ><i class="fa-solid fa-arrow-down"></i> -5% vs ayer</span
+              >
+            </div>
+            <i class="fa-solid fa-chart-line stat-icon"></i>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="section-card">
+            <h3 class="section-title">Empleados en turno</h3>
+            <div id="employees-on-shift"></div>
+          </div>
+          <div class="section-card">
+            <h3 class="section-title">Alertas del sistema</h3>
+            <div id="system-alerts">
+              <div class="alert-item red">
+                <p class="alert-title">Stock bajo</p>
+                <p class="alert-desc">5 productos con inventario crítico</p>
+              </div>
+              <div class="alert-item orange">
+                <p class="alert-title">Mesa esperando</p>
+                <p class="alert-desc" id="alert-mesa">Verificando mesas...</p>
+              </div>
+              <div class="alert-item green">
+                <p class="alert-title">Todo en orden</p>
+                <p class="alert-desc">No hay alertas críticas adicionales</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h3 class="section-title">Productos más vendidos hoy</h3>
+          <div id="top-products"></div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../data/db.js"></script>
+    <script src="../../assets/js/layout.js"></script>
+    <script src="../../assets/js/admin.js"></script>
+    <script>
+       initLayout("Dashboard");  
+       initAdminPage("dashboard"); 
+    </script>
+  </body>
+</html>

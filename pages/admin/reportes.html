@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xhimanut - Reportes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/layout.css">
+    <link rel="stylesheet" href="../../assets/css/admin.css">
+</head>
+
+<body>
+
+    <div id="layout-container"></div>
+
+    <main class="admin-main">
+        <div class="page-content">
+
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Reportes y Análisis</h1>
+                    <p class="page-subtitle" id="reporte-rango"></p>
+                </div>
+                <button class="btn-primary" onclick="exportarPDF()">
+                    <i class="fa-solid fa-file-pdf"></i> Exportar PDF
+                </button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <p class="stat-label"><i class="fa-solid fa-dollar-sign" style="color:#ea580c;"></i> Ventas totales</p>
+                        <p class="stat-value" id="r-ventas-total">$0</p>
+                        <span class="stat-change up" id="r-ventas-change"></span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <p class="stat-label"><i class="fa-solid fa-chart-line" style="color:#ea580c;"></i> Ticket promedio</p>
+                        <p class="stat-value" id="r-ticket">$0</p>
+                        <span class="stat-change up" id="r-ticket-change"></span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <p class="stat-label"><i class="fa-solid fa-calendar" style="color:#2563eb;"></i> Órdenes totales</p>
+                        <p class="stat-value" id="r-ordenes">0</p>
+                        <span class="stat-change" style="color:#9ca3af;" id="r-ordenes-day"></span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <p class="stat-label"><i class="fa-solid fa-dollar-sign" style="color:#ea580c;"></i> Propinas totales</p>
+                        <p class="stat-value" id="r-propinas">$0</p>
+                        <span class="stat-change" style="color:#9ca3af;">10% promedio</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="section-card">
+                    <h3 class="section-title">Ventas por día</h3>
+                    <div id="ventas-por-dia"></div>
+                </div>
+                <div class="section-card">
+                    <h3 class="section-title">Top 10 Productos</h3>
+                    <div id="top-productos-reporte"></div>
+                </div>
+            </div>
+
+            <div class="section-card" style="margin-top: 20px;">
+                <h3 class="section-title">Desempeño por turno</h3>
+                <div class="turno-grid" id="turno-grid"></div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="../../data/db.js"></script>
+    <script src="../../assets/js/layout.js"></script>
+    <script src="../../assets/js/admin.js"></script>
+    <script>
+        initLayout("Reportes");
+        initAdminPage("reportes");
+    </script>
+
+</body>
+
+</html>

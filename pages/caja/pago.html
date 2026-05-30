@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Xhimanut — Pago</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../../assets/css/global.css"/>
+  <link rel="stylesheet" href="../../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../../assets/css/pago.css"/>
+</head>
+<body>
+
+<div id="layout-container"></div>
+
+<div class="app-container">
+  <main class="main-content">
+
+    <div class="page-header page-header-actions">
+      <div>
+        <h1><i class="fa-solid fa-money-bill" style="color:#E53935"></i> Registrar pago</h1>
+        <p class="text-muted" id="pago-subtitulo">Cargando...</p>
+      </div>
+      <button class="btn-volver-factura" onclick="window.location.href='factura.html'">
+        <i class="fa-solid fa-arrow-left"></i> Volver a factura
+      </button>
+    </div>
+
+    <div class="pago-layout">
+
+      <!-- Panel izquierdo: resumen -->
+      <div class="pago-panel panel-resumen">
+
+        <div class="panel-title">
+          <i class="fa-solid fa-receipt"></i> Resumen del cobro
+        </div>
+
+        <div class="resumen-info">
+          <div class="resumen-row">
+            <span class="resumen-label">Mesa</span>
+            <span class="resumen-val" id="res-mesa">—</span>
+          </div>
+          <div class="resumen-row">
+            <span class="resumen-label">Método de pago</span>
+            <span class="resumen-val" id="res-metodo">—</span>
+          </div>
+          <div class="resumen-row">
+            <span class="resumen-label">Subtotal</span>
+            <span class="resumen-val" id="res-subtotal">$0</span>
+          </div>
+          <div class="resumen-row">
+            <span class="resumen-label">IVA (8%)</span>
+            <span class="resumen-val" id="res-iva">$0</span>
+          </div>
+          <div class="resumen-row resumen-total">
+            <span>Total a pagar</span>
+            <span id="res-total">$0</span>
+          </div>
+        </div>
+
+        <!-- Detalle productos colapsable -->
+        <div class="detalle-toggle" onclick="toggleDetalle()">
+          <span>Ver detalle del pedido</span>
+          <i class="fa-solid fa-chevron-down" id="detalle-chevron"></i>
+        </div>
+        <div class="detalle-productos hidden" id="detalle-productos">
+          <!-- Generado por JS -->
+        </div>
+
+      </div>
+
+      <!-- Panel derecho: cobro -->
+      <div class="pago-panel panel-cobro">
+
+        <!-- Efectivo -->
+        <div id="cobro-efectivo">
+          <div class="panel-title" style="margin-bottom:var(--space-lg)">
+            <i class="fa-solid fa-money-bill-wave"></i> Pago en efectivo
+          </div>
+
+          <div class="monto-display">
+            <div class="monto-label">Total a cobrar</div>
+            <div class="monto-valor" id="cobro-total-display">$0</div>
+          </div>
+
+          <!-- Billetes rápidos -->
+          <div class="billetes-section">
+            <div class="billetes-label">Selecciona billete recibido</div>
+            <div class="billetes-grid" id="billetes-grid"></div>
+          </div>
+
+          <!-- Input manual -->
+          <div class="input-recibido-wrap">
+            <label class="input-recibido-label">
+              <i class="fa-solid fa-hand-holding-dollar"></i> Dinero recibido
+            </label>
+            <div class="input-money-wrap">
+              <span class="input-money-prefix">$</span>
+              <input
+                type="number"
+                id="input-recibido"
+                class="input-recibido"
+                placeholder="0"
+                min="0"
+                oninput="calcularCambio()"
+              />
+            </div>
+          </div>
+
+          <!-- Cambio -->
+          <div class="cambio-box" id="cambio-box">
+            <div class="cambio-row">
+              <span class="cambio-label">Recibido</span>
+              <span class="cambio-val" id="cambio-recibido">$0</span>
+            </div>
+            <div class="cambio-row">
+              <span class="cambio-label">Total</span>
+              <span class="cambio-val" id="cambio-total">$0</span>
+            </div>
+            <div class="cambio-divider"></div>
+            <div class="cambio-row cambio-resultado" id="cambio-resultado-row">
+              <span id="cambio-resultado-label">Cambio a devolver</span>
+              <span class="cambio-resultado-val" id="cambio-resultado-val">$0</span>
+            </div>
+          </div>
+
+          <!-- Alerta pago insuficiente -->
+          <div class="alerta-insuficiente hidden" id="alerta-insuficiente">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>El pago es insuficiente — faltan <strong id="falta-valor">$0</strong></span>
+          </div>
+
+        </div>
+
+        <!-- Tarjeta / Transferencia -->
+        <div id="cobro-digital" class="hidden">
+          <div class="panel-title" style="margin-bottom:var(--space-lg)">
+            <i class="fa-solid fa-credit-card"></i> Pago digital
+          </div>
+
+          <div class="monto-display">
+            <div class="monto-label">Total a cobrar</div>
+            <div class="monto-valor" id="cobro-total-digital">$0</div>
+          </div>
+
+          <div class="digital-info">
+            <i class="fa-solid fa-circle-info"></i>
+            <p>Confirma que el pago fue procesado correctamente en el terminal o plataforma correspondiente antes de registrar.</p>
+          </div>
+        </div>
+
+        <!-- Botón registrar -->
+        <button class="btn-registrar" id="btn-registrar" onclick="registrarPago()" disabled>
+          <i class="fa-solid fa-circle-check"></i> Confirmar y registrar pago
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Modal éxito -->
+    <div class="modal-overlay hidden" id="modal-pago-ok">
+      <div class="modal-card">
+        <div class="modal-icon">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h3>¡Pago registrado!</h3>
+        <p id="modal-pago-msg">La venta fue procesada correctamente.</p>
+        <div class="modal-cambio hidden" id="modal-cambio-wrap">
+          <span>Cambio a devolver:</span>
+          <strong id="modal-cambio-val">$0</strong>
+        </div>
+        <button class="btn-registrar" style="width:100%;margin-top:var(--space-md)" onclick="finalizarPago()">
+          Aceptar
+        </button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="../../data/db.js"></script>
+<script src="../../assets/js/layout.js"></script>
+<script src="../../assets/js/pago.js"></script>
+<script>
+  initLayout('Pago');
+  initPago();
+</script>
+
+</body>
+</html>

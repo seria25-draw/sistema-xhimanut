@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xhimanut - Cierre de caja</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/layout.css">
+    <link rel="stylesheet" href="../../assets/css/caja.css">
+</head>
+
+<body>
+
+    <div id="layout-container"></div>
+
+    <main class="main-content">
+        <div class="page-content">
+
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Cierre del día</h1>
+                    <p class="page-subtitle" id="cierre-fecha"></p>
+                </div>
+                <div style="display:flex; gap:12px;">
+                    <button class="btn-outline-red" onclick="exportarReporte()">
+                        <i class="fa-solid fa-file-pdf"></i> Exportar reporte PDF
+                    </button>
+                    <button class="btn-red" onclick="confirmarCierre()">
+                        <i class="fa-solid fa-cash-register"></i> Confirmar cierre de caja
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="cierre-stats">
+                <div class="cierre-stat-card">
+                    <p class="cierre-stat-label">Total ventas</p>
+                    <p class="cierre-stat-value green" id="stat-total-ventas">$0</p>
+                    <span class="cierre-stat-change">↑ +12%</span>
+                </div>
+                <div class="cierre-stat-card">
+                    <p class="cierre-stat-label">Transacciones</p>
+                    <p class="cierre-stat-value" id="stat-transacciones">0</p>
+                </div>
+                <div class="cierre-stat-card">
+                    <p class="cierre-stat-label">Efectivo</p>
+                    <p class="cierre-stat-value" id="stat-efectivo">$0</p>
+                </div>
+                <div class="cierre-stat-card">
+                    <p class="cierre-stat-label">Nequi</p>
+                    <p class="cierre-stat-value" id="stat-nequi">$0</p>
+                </div>
+                <div class="cierre-stat-card">
+                    <p class="cierre-stat-label">Propinas</p>
+                    <p class="cierre-stat-value green" id="stat-propinas">$0</p>
+                </div>
+            </div>
+
+            <!-- Gráfica ventas por hora -->
+            <div class="cierre-card" style="margin-bottom: 20px;">
+                <h3 class="cierre-card-title">Ventas por hora</h3>
+                <div class="cierre-grafica" id="grafica-horas"></div>
+            </div>
+
+            <!-- Desglose y productos -->
+            <div class="cierre-grid">
+
+                <div class="cierre-card">
+                    <h3 class="cierre-card-title">Desglose por método de pago</h3>
+                    <div class="cierre-metodo-item">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <i class="fa-regular fa-square" style="color:#9ca3af;"></i>
+                            <span style="font-size:14px; color:#374151;">Efectivo</span>
+                        </div>
+                        <div style="text-align:right;">
+                            <p class="cierre-metodo-valor" id="desglose-efectivo">$0</p>
+                            <p class="cierre-metodo-sub" id="desglose-efectivo-tx">0 transacciones</p>
+                        </div>
+                    </div>
+                    <div class="cierre-metodo-item">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <i class="fa-regular fa-square" style="color:#9ca3af;"></i>
+                            <span style="font-size:14px; color:#374151;">Nequi</span>
+                        </div>
+                        <div style="text-align:right;">
+                            <p class="cierre-metodo-valor" id="desglose-nequi">$0</p>
+                            <p class="cierre-metodo-sub" id="desglose-nequi-tx">0 transacciones</p>
+                        </div>
+                    </div>
+                    <div class="cierre-metodo-total">
+                        <span>Total:</span>
+                        <span class="cierre-total-valor" id="desglose-total">$0</span>
+                    </div>
+                </div>
+
+                <div class="cierre-card">
+                    <h3 class="cierre-card-title">Productos más vendidos hoy</h3>
+                    <div id="productos-mas-vendidos"></div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <script src="../../data/db.js"></script>
+    <script src="../../assets/js/layout.js"></script>
+    <script src="../../assets/js/caja.js"></script>
+    <script>
+        const loggedUser = sessionStorage.getItem("usuario");
+        if (!loggedUser) {
+            window.location.href = "../../index.html";
+        } else {
+            const user = JSON.parse(loggedUser);
+            sessionStorage.setItem("usuario", JSON.stringify({
+                nombre: user.nombre || "Cajero",
+                rol: "caja",
+                cedula: user.cedula || "—",
+                id: user.id || 1
+            }));
+            initLayout("Cierre de caja");
+            initCierreCaja();
+        }
+    </script>
+
+</body>
+
+</html>

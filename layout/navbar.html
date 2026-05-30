@@ -11,12 +11,14 @@
   <!-- Menú generado por layout.js -->
   <nav class="sidebar-nav" id="sidebar-nav"></nav>
 
-  <!-- Cerrar sesión -->
+  <!-- Footer: Ayuda + Cerrar sesión -->
   <div class="sidebar-footer">
+    <a href="#" class="sidebar-nav-item sidebar-ayuda">
+      <span class="sidebar-nav-icon"><i class="fa-regular fa-circle-question"></i></span>
+      <span class="sidebar-nav-label">Ayuda</span>
+    </a>
     <a href="#" class="sidebar-nav-item logout" id="btn-logout">
-      <span class="sidebar-nav-icon"
-        ><i class="fa-solid fa-right-from-bracket"></i
-      ></span>
+      <span class="sidebar-nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
       <span class="sidebar-nav-label">Cerrar sesión</span>
     </a>
   </div>
@@ -31,7 +33,14 @@
     <span class="current" id="navbar-page-title">Inicio</span>
   </div>
 
-  <!-- Acciones -->
+  <!-- Search -->
+  <div class="navbar-search">
+    <span class="search-icon"
+      ><i class="fa-solid fa-magnifying-glass"></i
+    ></span>
+    <input type="text" placeholder="Buscar..." id="navbar-search-input" />
+  </div>
+
   <!-- Acciones -->
   <div class="navbar-actions">
     <button
