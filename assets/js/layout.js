@@ -483,6 +483,10 @@ function cerrarSesion() {
 }
 
 function getLoginPath() {
-  const depth = window.location.pathname.split("/").length - 2;
-  return "../".repeat(depth) + "index.html";
+  // Detecta si está en GitHub Pages
+  if (window.location.hostname.includes('github.io')) {
+    return '/sistema-xhimanut/index.html';
+  }
+  const depth = window.location.pathname.split('/').length - 2;
+  return '../'.repeat(depth) + 'index.html';
 }
